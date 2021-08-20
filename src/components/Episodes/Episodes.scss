@@ -1,0 +1,11 @@
+.episode-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.episode-card {
+  width: 25vw;
+  height: 25vh;
+  text-align: center;
+  border: 1px solid black;
+}

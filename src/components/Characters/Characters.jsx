@@ -12,7 +12,7 @@ import "./Characters.scss";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& > *": {
+    "& > * %": {
       marginTop: theme.spacing(2),
     },
   },
@@ -25,8 +25,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const Characters = () => {
-  const [page, setPage] = useState([1]);
   const classes = useStyles();
+  const [page, setPage] = useState([1]);
   const [character, setCharacter] = useState([]);
   const [allPages, setAllPages] = useState();
   const [gender, setGender] = useState("");
@@ -49,18 +49,22 @@ const Characters = () => {
   };
   const handleChangeGender = (event) => {
     setGender(event.target.value);
+    setPage([1]);
   };
   const handleChangeSpecies = (event) => {
     setSpecies(event.target.value);
+    setPage([1]);
   };
   const handleChangeStatus = (event) => {
     setStatus(event.target.value);
+    setPage([1]);
   };
   const handleShowAll = () => {
     setGender(" ");
     setSpecies(" ");
     setStatus(" ");
   };
+
   return (
     <div className="character-container">
       <div className={"character-filter"}>
@@ -100,6 +104,7 @@ const Characters = () => {
             <MenuItem value={"Robot"}>Robot</MenuItem>
             <MenuItem value={"Human"}>Human</MenuItem>
             <MenuItem value={"Alien"}>Alien</MenuItem>
+            <MenuItem value={"Humanoid"}>Humanoid</MenuItem>
           </Select>
         </FormControl>
         <FormControl className={classes.formControl}>

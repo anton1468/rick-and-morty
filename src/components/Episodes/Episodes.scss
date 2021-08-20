@@ -1,11 +1,12 @@
 .episode-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 30px;
+  margin-left: 140px;
 }
-.episode-card {
-  width: 25vw;
-  height: 25vh;
-  text-align: center;
-  border: 1px solid black;
+.search {
+  width: 200px;
+  margin: 0 auto;
+  margin-bottom: 30px;
 }

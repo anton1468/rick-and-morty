@@ -1,41 +1,62 @@
 import React, { useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Pagination from "@material-ui/lab/Pagination";
 import EpisodeCard from "./EpisodeCard";
+import TextField from "@material-ui/core/TextField";
 import "./Episodes.scss";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& > * %": {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));
 const Episodes = () => {
-  const [episodes, setEpisodes] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const classes = useStyles();
+  const [page, setPage] = useState([1]);
+  const [episodes, setEpisode] = useState([]);
+  const [allPages, setAllPages] = useState();
+  const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
-    fetch(`https://rickandmortyapi.com/api/episode/?page=${currentPage}`)
+    fetch(
+      `https://rickandmortyapi.com/api/episode/?page=${page}&name=${inputValue}&characters=19`
+    )
       .then((response) => {
         return response.json();
       })
       .then((data) => {
-        setEpisodes(data.results);
+        setEpisode(data.results);
+        setAllPages(data.info);
       });
-  });
-  const goToNextPage = () => {
-    if (3 <= currentPage) {
-      console.log("no more pages");
-    } else {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-  const goToPrevPage = () => {
-    if (1 >= currentPage) {
-      console.log("no more pages");
-    } else {
-      setCurrentPage(currentPage - 1);
-    }
+  }, [page, inputValue]);
+  const changePage = (count) => {
+    setPage(count.target.innerText);
   };
   return (
-    <div className="episode-container">
-      {episodes.map((episode) => (
-        <EpisodeCard episode={episode} />
-      ))}
-      <button onClick={goToPrevPage}>Prev page</button>
-      <button onClick={goToNextPage}>Next page</button>
+    <div>
+      <form className="search" noValidate autoComplete="off">
+        <TextField
+          id="outlined-secondary"
+          variant="outlined"
+          color="secondary"
+          label="Search by name"
+          onChange={(e) => setInputValue(e.target.value)}
+        />
+      </form>
+      <div className="episode-container">
+        {episodes === undefined
+          ? null
+          : episodes.map((episode) => <EpisodeCard episode={episode} />)}
+        {allPages === undefined ? (
+          <p>Try something else</p>
+        ) : (
+          <div className={classes.root}>
+            <Pagination count={allPages.pages} onClick={changePage} />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

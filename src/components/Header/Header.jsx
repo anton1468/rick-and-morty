@@ -1,23 +1,35 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import Button from "@material-ui/core/Button";
+import "./Header.scss";
 const Header = () => {
   return (
-    <div>
-      <ul>
-        <Link to="/">
-          <li>Home</li>
-        </Link>
-        <Link to="/episodes">
-          <li>Episodes</li>
-        </Link>
-        <Link to="/characters">
-          <li>Characters</li>
-        </Link>
-        <Link to="/mywatchlist">
-          <li>My watch list</li>
-        </Link>
-      </ul>
+    <div className="header-links">
+      <Link to="/">
+        <Button size="medium" variant="outlined" color="primary">
+          Home
+        </Button>
+      </Link>
+      <Link to="/episodes">
+        <Button size="medium" variant="outlined" color="primary">
+          Episodes
+        </Button>
+      </Link>
+      <Link to="/characters">
+        <Button size="medium" variant="outlined" color="primary">
+          Characters
+        </Button>
+      </Link>
+      <Link to="/locations">
+        <Button size="medium" variant="outlined" color="primary">
+          Locations
+        </Button>
+      </Link>
+      <Link to="/mywatchlist">
+        <Button size="medium" variant="outlined" color="primary">
+          My Watch List
+        </Button>
+      </Link>
     </div>
   );
 };

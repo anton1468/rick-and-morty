@@ -1,0 +1,28 @@
+.item {
+  width: 200px;
+  border: 1px solid black;
+  display: flex;
+  border-radius: 15px;
+}
+.item-list {
+  width: 200px;
+  margin: 0 auto;
+}
+.search {
+  position: relative;
+  width: 200px;
+}
+.add-btn {
+  position: absolute;
+  top: 18px;
+  left: 175px;
+  cursor: pointer;
+  font-size: 19px;
+  &:hover {
+    color: red;
+  }
+}
+.delete-btn {
+  font-size: 18px;
+  position: relative;
+}

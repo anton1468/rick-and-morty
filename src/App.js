@@ -7,7 +7,6 @@ import Header from './components/Header/Header';
 import WatchList from './components/WatchList/WatchList';
 import Locations from './components/Locations/Locations';
 function App() {
-
   return (
     <div className="App">
 

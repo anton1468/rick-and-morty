@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
 const Episodes = () => {
   const classes = useStyles();
   const [page, setPage] = useState([1]);
@@ -21,7 +22,7 @@ const Episodes = () => {
 
   useEffect(() => {
     fetch(
-      `https://rickandmortyapi.com/api/episode/?page=${page}&name=${inputValue}&characters=19`
+      `https://rickandmortyapi.com/api/episode/?page=${page}&name=${inputValue}`
     )
       .then((response) => {
         return response.json();
@@ -34,6 +35,7 @@ const Episodes = () => {
   const changePage = (count) => {
     setPage(count.target.innerText);
   };
+
   return (
     <div>
       <form className="search" noValidate autoComplete="off">

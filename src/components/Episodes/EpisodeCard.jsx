@@ -23,8 +23,10 @@ const useStyles = makeStyles({
 });
 
 const EpisodeCard = (episode) => {
-  const episodeItem = episode.episode;
   const classes = useStyles();
+  const episodeItem = episode.episode;
+  const handleAddItem = episode.addItem;
+
   return (
     <div className="episode-card">
       <Card className={classes.root} variant="outlined">
@@ -39,6 +41,14 @@ const EpisodeCard = (episode) => {
             Number of characters: {episodeItem.characters.length}
           </Typography>
         </CardContent>
+        <Button
+          variant="contained"
+          color="primary"
+          size="small"
+          onClick={() => handleAddItem(episodeItem.name)}
+        >
+          Add to watchlist
+        </Button>
       </Card>
     </div>
   );

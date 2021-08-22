@@ -13,12 +13,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Episodes = () => {
+const getLocalItems = () => {
+  let list = localStorage.getItem("watchAddList");
+  if (list) {
+    return JSON.parse(localStorage.getItem("watchAddList"));
+  } else {
+    return [];
+  }
+};
+const Episodes = (props) => {
   const classes = useStyles();
   const [page, setPage] = useState([1]);
   const [episodes, setEpisode] = useState([]);
   const [allPages, setAllPages] = useState();
   const [inputValue, setInputValue] = useState("");
+  const [items, setItems] = useState(getLocalItems());
 
   useEffect(() => {
     fetch(
@@ -36,6 +45,17 @@ const Episodes = () => {
     setPage(count.target.innerText);
   };
 
+  const addItem = (episode) => {
+    if (items.some((e) => e.input === episode)) {
+      alert("You already have it");
+    } else {
+      setItems([...items, { completed: false, input: episode }]);
+    }
+  };
+
+  useEffect(() => {
+    localStorage.setItem("watchAddList", JSON.stringify(items));
+  }, [items]);
   return (
     <div>
       <form className="search" noValidate autoComplete="off">
@@ -50,7 +70,9 @@ const Episodes = () => {
       <div className="episode-container">
         {episodes === undefined
           ? null
-          : episodes.map((episode) => <EpisodeCard episode={episode} />)}
+          : episodes.map((episode, id) => (
+              <EpisodeCard key={id} episode={episode} addItem={addItem} />
+            ))}
         {allPages === undefined ? (
           <p>Try something else</p>
         ) : (

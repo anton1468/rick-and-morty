@@ -4,9 +4,9 @@ import { RiAddCircleLine, RiDeleteBin3Line } from "react-icons/ri";
 import "./WatchList.scss";
 
 const getLocalItems = () => {
-  let list = localStorage.getItem("lists");
+  let list = localStorage.getItem("watchAddList");
   if (list) {
-    return JSON.parse(localStorage.getItem("lists"));
+    return JSON.parse(localStorage.getItem("watchAddList"));
   } else {
     return [];
   }
@@ -14,8 +14,9 @@ const getLocalItems = () => {
 const WatchList = () => {
   const [inputData, setInputData] = useState("");
   const [items, setItems] = useState(getLocalItems());
+  const [completed, setCompleted] = useState(false);
   const addItem = () => {
-    setItems([...items, inputData]);
+    setItems([...items, { completed: completed, input: inputData }]);
     setInputData("");
   };
   const deleteItem = (id) => {
@@ -25,8 +26,12 @@ const WatchList = () => {
     setItems(updatedItems);
   };
   useEffect(() => {
-    localStorage.setItem("lists", JSON.stringify(items));
-  }, [items]);
+    localStorage.setItem("watchAddList", JSON.stringify(items));
+  }, [items, completed]);
+  const handleComplete = (item) => {
+    setCompleted(!completed);
+    item.completed = !completed;
+  };
   return (
     <div>
       <form className="search" noValidate autoComplete="off">
@@ -43,17 +48,12 @@ const WatchList = () => {
         />
         <RiAddCircleLine className="add-btn" onClick={addItem} />
       </form>
-      <div className="item-list">
-        {items.map((elem, ind) => (
-          <div className="item" key={ind}>
-            <p>{elem}</p>
-            <RiDeleteBin3Line
-              className="delete-btn"
-              onClick={() => deleteItem(ind)}
-            />
-          </div>
-        ))}
-      </div>
+      {items.map((item, id) => (
+        <div key={id} onClick={() => handleComplete(item)}>
+          <p>{item.input}</p>
+          <button onClick={() => deleteItem(id)}>delete</button>
+        </div>
+      ))}
     </div>
   );
 };

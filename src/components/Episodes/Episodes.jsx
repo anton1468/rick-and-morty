@@ -67,15 +67,16 @@ const Episodes = (props) => {
           onChange={(e) => setInputValue(e.target.value)}
         />
       </form>
-      <div className="episode-container">
-        {episodes === undefined
-          ? null
-          : episodes.map((episode, id) => (
-              <EpisodeCard key={id} episode={episode} addItem={addItem} />
-            ))}
-        {allPages === undefined ? (
-          <p>Try something else</p>
-        ) : (
+      <div>
+        <div className="episode-container">
+          {episodes === undefined
+            ? null
+            : episodes.map((episode, id) => (
+                <EpisodeCard key={id} episode={episode} addItem={addItem} />
+              ))}
+        </div>
+
+        {allPages === undefined ? null : (
           <div className={classes.root}>
             <Pagination count={allPages.pages} onClick={changePage} />
           </div>

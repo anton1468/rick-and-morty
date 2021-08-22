@@ -15,9 +15,12 @@ const WatchList = () => {
   const [inputData, setInputData] = useState("");
   const [items, setItems] = useState(getLocalItems());
   const [completed, setCompleted] = useState(false);
-  const addItem = () => {
-    setItems([...items, { completed: completed, input: inputData }]);
-    setInputData("");
+  const addItem = (event) => {
+    if (event.key === "Enter") {
+      setItems([...items, { completed: completed, input: inputData }]);
+      setInputData("");
+      event.preventDefault();
+    }
   };
   const deleteItem = (id) => {
     const updatedItems = items.filter((elem, ind) => {
@@ -30,8 +33,9 @@ const WatchList = () => {
   }, [items, completed]);
   const handleComplete = (item) => {
     setCompleted(!completed);
-    item.completed = !completed;
+    item.completed = completed;
   };
+
   return (
     <div>
       <form className="search" noValidate autoComplete="off">
@@ -45,15 +49,24 @@ const WatchList = () => {
           onChange={(e) => {
             setInputData(e.target.value);
           }}
+          onKeyPress={addItem}
         />
-        <RiAddCircleLine className="add-btn" onClick={addItem} />
       </form>
-      {items.map((item, id) => (
-        <div key={id} onClick={() => handleComplete(item)}>
-          <p>{item.input}</p>
-          <button onClick={() => deleteItem(id)}>delete</button>
-        </div>
-      ))}
+      <div className="item-list">
+        {items.map((item, id) => (
+          <div
+            key={id}
+            onClick={() => handleComplete(item)}
+            className={item.completed ? "item_active" : "item"}
+          >
+            <p>{item.input}</p>
+            <RiDeleteBin3Line
+              onClick={() => deleteItem(id)}
+              className="delete-btn"
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

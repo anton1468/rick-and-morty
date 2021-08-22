@@ -9,10 +9,13 @@
   }
 }
 .character-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 60px;
   margin-left: 200px;
+  .characters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 60px;
+    margin-bottom: 50px;
+  }
 }
 .button {
   display: none;

@@ -14,7 +14,7 @@ function App() {
       <BrowserRouter>
         <Header />
         <Switch>
-          <Route exact path="/">Hi</Route>
+
           <Route path="/episodes"><Episodes /></Route>
           <Route path="/characters"><Characters /></Route>
           <Route path="/locations"><Locations /></Route>

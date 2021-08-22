@@ -67,7 +67,7 @@ const Characters = () => {
 
   return (
     <div className="character-container">
-      <div className={"character-filter"}>
+      <div className="character-filter">
         <Button
           onClick={handleShowAll}
           size="small"
@@ -121,20 +121,20 @@ const Characters = () => {
           </Select>
         </FormControl>
       </div>
+      <div className="characters">
+        {character === undefined
+          ? null
+          : character.map((characterList, id) => (
+              <div key={id}>
+                <CharacterCard characterId={characterList} />
+              </div>
+            ))}
+      </div>
 
-      {character === undefined ? (
+      {allPages === undefined ? (
         <div>
           <CircularProgress color="secondary" />
         </div>
-      ) : (
-        character.map((characterList) => (
-          <div>
-            <CharacterCard characterId={characterList} />
-          </div>
-        ))
-      )}
-      {allPages === undefined ? (
-        <p>Try something else</p>
       ) : (
         <div className={classes.root}>
           <Pagination count={allPages.pages} onClick={changePage} />

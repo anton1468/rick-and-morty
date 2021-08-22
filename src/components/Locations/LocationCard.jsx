@@ -3,11 +3,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles({
   root: {
     width: 300,
+    height: 150,
   },
   bullet: {
     display: "inline-block",
@@ -21,36 +21,29 @@ const useStyles = makeStyles({
     marginBottom: 12,
   },
 });
-
-const EpisodeCard = (episode) => {
+const LocationCard = (locationList) => {
   const classes = useStyles();
-  const episodeItem = episode.episode;
-  const handleAddItem = episode.addItem;
-
+  const location = locationList.locationList;
   return (
-    <div className="episode-card">
+    <div className="location-card">
       <Card className={classes.root} variant="outlined">
         <CardContent>
-          <Typography variant="body2" component="p">
-            {episodeItem.name}
+          <Typography variant="h5" component="h5">
+            {location.name}
           </Typography>
-          <Typography variant="h6" component="h6">
-            Episode num: {episodeItem.episode}
+          <Typography component="h6">
+            Dimension: {location.dimension}
           </Typography>
           <Typography variant="h7" component="h7">
-            Number of characters: {episodeItem.characters.length}
+            Number of residents: {location.residents.length}
+          </Typography>
+          <Typography variant="p" component="p">
+            Type: {location.type}
           </Typography>
         </CardContent>
-        <Button
-          variant="contained"
-          color="primary"
-          size="small"
-          onClick={() => handleAddItem(episodeItem.name)}
-        >
-          Add to watchlist
-        </Button>
       </Card>
     </div>
   );
 };
-export default EpisodeCard;
+
+export default LocationCard;

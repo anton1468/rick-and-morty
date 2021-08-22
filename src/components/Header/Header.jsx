@@ -5,11 +5,6 @@ import "./Header.scss";
 const Header = () => {
   return (
     <div className="header-links">
-      <Link to="/">
-        <Button size="medium" variant="outlined" color="primary">
-          Home
-        </Button>
-      </Link>
       <Link to="/episodes">
         <Button size="medium" variant="outlined" color="primary">
           Episodes
